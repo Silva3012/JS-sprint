@@ -59,9 +59,9 @@ input[type="text"] {
     max-width: 600px;
 }
 
-/*.hide {*/
-/*    display: none;*/
-/*}*/
+.hide {
+    display: none;
+}
 
 .start {
     text-align: center;
