@@ -6,6 +6,8 @@ const timerElement = document.querySelector("#time");
 const titleElement = document.querySelector("#question-title");
 const feedbackElement = document.querySelector("#feedback");
 const choicesElement = document.querySelector("#choices");
+const endScreenElement = document.querySelector("#end-screen");
+const finalScoreElement = document.querySelector("#final-score");
 
 // Sounds
 const correctSound = new Audio('assets/sfx/correct.wav');
@@ -19,10 +21,10 @@ let timerId;
 // A function that starts the quiz, by hiding the start screen and getting a question and also starting the timer
 const startTheQuiz = () => {
     // Hide the start screen by adding "hide" as a value to the class
-    startScreenElement.setAttribute("class", "hide");
+    startScreenElement.classList.add("hide");
 
     // Un-hide questions by removing the class attribute
-    questionsElement.removeAttribute("class");
+    questionsElement.classList.remove("hide");
 
     // Start the timer
     timerId = setInterval(clockTimer, 1000)
@@ -48,7 +50,8 @@ const fetchQuestion = () => {
     for (let i = 0; i < question.choices.length; i++) {
         let choice = question.choices[i];
         let choiceButton = document.createElement("button");
-        choiceButton.setAttribute("class", "choice-button");
+        // Add a class to the choice button
+        choiceButton.classList.add("choice-button");
         choiceButton.setAttribute("value", choice);
         choiceButton.textContent = i + 1 + '.' + choice;
         // Create a line break element
@@ -81,6 +84,9 @@ const handleAnswerClick = (e) => {
         if (time < 0) {
             time = 0;
         }
+
+        // Display new time on a page
+        timerElement.textContent = time;
     }
 
     // Show right or wrong on the page for a second
@@ -101,6 +107,21 @@ const handleAnswerClick = (e) => {
 
 }
 
+// This function will end the quiz by clearing the timer, showing the end screen, show the final score and hiding the questions section
+const endTheQuiz = () => {
+    // clear/stop the time
+    clearInterval(timerId);
+
+    // End screen
+    endScreenElement.classList.remove("hide");
+
+    // Hide questions
+    questionsElement.classList.add("hide");
+
+    // Show final score
+    finalScoreElement.textContent = time;
+
+}
 
 // This function is responsible for updating the time and checking if the user has ran out of time
 const clockTimer = () => {
