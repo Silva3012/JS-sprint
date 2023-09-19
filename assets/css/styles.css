@@ -29,9 +29,9 @@ button:hover {
     background-color: #b2a038;
 }
 
-/*.choices button {*/
-/*    display: block;*/
-/*}*/
+.choices button {
+    display: block;
+}
 
 input[type="text"] {
     font-size: 100%;
@@ -39,20 +39,20 @@ input[type="text"] {
 
 /* List Items */
 
-/*ol {*/
-/*    padding-left: 0px;*/
-/*    max-height: 400px;*/
-/*    overflow: auto;*/
-/*}*/
+ol {
+    padding-left: 0px;
+    max-height: 400px;
+    overflow: auto;
+}
 
-/*li {*/
-/*    padding: 5px;*/
-/*    list-style: decimal inside none;*/
-/*}*/
+li {
+    padding: 5px;
+    list-style: decimal inside none;
+}
 
-/*li:nth-child(odd) {*/
-/*    background-color: #FFFFFF;*/
-/*}*/
+li:nth-child(odd) {
+    background-color: #090909;
+}
 
 .wrapper {
     margin: 100px auto 0 auto;

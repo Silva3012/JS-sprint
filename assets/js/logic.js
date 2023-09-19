@@ -8,6 +8,8 @@ const feedbackElement = document.querySelector("#feedback");
 const choicesElement = document.querySelector("#choices");
 const endScreenElement = document.querySelector("#end-screen");
 const finalScoreElement = document.querySelector("#final-score");
+const submitButtonElement = document.querySelector("#submit");
+const initialsElement = document.querySelector("#initials");
 
 // Sounds
 const correctSound = new Audio('assets/sfx/correct.wav');
@@ -135,8 +137,37 @@ const clockTimer = () => {
     }
 
 }
+
+// This function will save the users highscores and store it in local storage
+const saveUserHighScore = () => {
+    // Get a trimmed value of the users input
+    let initials = initialsElement.value.trim();
+
+    // If initials is true get saved ones from localstorage or set to an empty array
+    if (initials !== "") {
+        let highScores = JSON.parse(window.localStorage.getItem("high-scores")) || [];
+
+        // Create and format a score and initial object for the current user
+        let scoreAndInitials = {
+            score: time,
+            initials: initials,
+        };
+
+        // Save to local storage
+        highScores.push(scoreAndInitials);
+        window.localStorage.setItem("high-scores", JSON.stringify(highScores));
+
+        // Redirect to the high score page
+        window.location.href = "highscores.html";
+    }
+}
+
+
 // On click event to start the quiz
 startButton.onclick = startTheQuiz;
 
 // Choices on click event
 choicesElement.onclick = handleAnswerClick;
+
+// Submit initials with score
+submitButtonElement.onclick = saveUserHighScore;
