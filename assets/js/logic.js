@@ -4,7 +4,12 @@ const startButton = document.querySelector("#start-button");
 const questionsElement = document.querySelector("#questions");
 const timerElement = document.querySelector("#time");
 const titleElement = document.querySelector("#question-title");
+const feedbackElement = document.querySelector("#feedback");
 const choicesElement = document.querySelector("#choices");
+
+// Sounds
+const correctSound = new Audio('assets/sfx/correct.wav');
+const incorrectSound = new Audio('assets/sfx/incorrect.wav')
 
 // Variables that keep track of the quizzes state
 let time = questions.length * 15;
@@ -43,7 +48,7 @@ const fetchQuestion = () => {
     for (let i = 0; i < question.choices.length; i++) {
         let choice = question.choices[i];
         let choiceButton = document.createElement("button");
-        choiceButton.setAttribute("class", "choices");
+        choiceButton.setAttribute("class", "choice-button");
         choiceButton.setAttribute("value", choice);
         choiceButton.textContent = i + 1 + '.' + choice;
         // Create a line break element
@@ -56,6 +61,47 @@ const fetchQuestion = () => {
     }
 
 }
+
+// This function will handle user interaction when an answer has been clicked
+const handleAnswerClick = (e) => {
+    // assign a target element to a variable for the choice buttons
+    let choiceButton = e.target;
+
+    // Check if the users answer is correct
+    if (choiceButton.value === questions[questionIndex].answer) {
+       // Show correct feedback and play the correct sound effect
+        feedbackElement.textContent = "Correct answer!";
+        correctSound.play();
+    } else {
+        // Reduce the time by 15 seconds, play incorrect sound show wrong feedback
+        time -= 15;
+        feedbackElement.textContent = "Wrong answer!";
+        incorrectSound.play();
+
+        if (time < 0) {
+            time = 0;
+        }
+    }
+
+    // Show right or wrong on the page for a second
+    feedbackElement.classList.remove("hide");
+    setTimeout(function() {
+        feedbackElement.classList.add("hide");
+    }, 1000);
+
+    // Move to the next question
+    questionIndex++
+
+    // Check if we still have questions and fetch the next question or end the quiz
+    if (time <= 0 || questionIndex === questions.length) {
+        endTheQuiz();
+    } else {
+        fetchQuestion();
+    }
+
+}
+
+
 // This function is responsible for updating the time and checking if the user has ran out of time
 const clockTimer = () => {
     // Updating the time
@@ -69,4 +115,7 @@ const clockTimer = () => {
 
 }
 // On click event to start the quiz
-startButton.onclick = startTheQuiz();
+startButton.onclick = startTheQuiz;
+
+// Choices on click event
+choicesElement.onclick = handleAnswerClick;
