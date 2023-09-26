@@ -51,7 +51,7 @@ li {
 }
 
 li:nth-child(odd) {
-    background-color: #090909;
+    background-color: #ffffff;
 }
 
 .wrapper {

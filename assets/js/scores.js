@@ -1,7 +1,9 @@
+
 // Function to display highscores
 const displayScores = () => {
     // Get the scores from local storage or set to an empty array
-    let highScores = JSON.parse(window.localStorage.getItem('high-scores')) || [];
+    let highScores = JSON.parse(window.localStorage.getItem("high-scores")) || [];
+    console.log(highScores);
 
     // Sort the scores by descending order
     highScores.sort((a, b) => {
@@ -15,7 +17,9 @@ const displayScores = () => {
 
         // Show on the page
         let orderedListTag = document.querySelector("#high-scores");
+        console.log(`Element selected: ${orderedListTag}`);
         orderedListTag.appendChild(listTag);
+        console.log(`${highScores[i].initials} : ${highScores[i].score}`)
     }
 }
 
@@ -25,6 +29,7 @@ const clearScores = () => {
     window.location.reload();
 }
 
-document.querySelector("#clear").onclick = clearScores();
+document.querySelector("#clear").onclick = clearScores;
 
 displayScores();
+

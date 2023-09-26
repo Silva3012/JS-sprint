@@ -163,6 +163,7 @@ const saveUserHighScore = () => {
 }
 
 
+
 // On click event to start the quiz
 startButton.onclick = startTheQuiz;
 
